@@ -1,7 +1,7 @@
 # Azure Functions
 bin/
 obj/
-.vscode/
+
 local.settings.json
 *.user
 *.suo
