@@ -9,6 +9,10 @@ using devbuddy.Data;
 using BCrypt.Net;
 using System.Linq;
 using devbuddy.Models;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System;
 
 namespace devbuddy.Functions
 {
@@ -53,8 +57,30 @@ namespace devbuddy.Functions
                 return new UnauthorizedObjectResult(new { success = false, message = "Invalid username or password." });
             }
 
+            // Generate JWT token
+            var tokenHandler = new JwtSecurityTokenHandler();
+            
+            // Retrieve the secret key from environment variables
+            var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? "";
+            
+            // TODO: Use Azure Key Vault to manage your secret keys securely
+            var key = System.Text.Encoding.ASCII.GetBytes(secretKey);
+            
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Role, user.Role)
+                }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
             _logger.LogInformation($"User logged in: {user.Username}");
-            return new OkObjectResult(new { success = true, message = "Login successful." });
+            return new OkObjectResult(new { success = true, message = "Login successful.", token = tokenString });
         }
     }
 
