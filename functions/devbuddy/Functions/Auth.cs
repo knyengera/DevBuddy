@@ -21,7 +21,7 @@ namespace devbuddy.Functions
         [Function("Auth")]
         public IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = "verify")] HttpRequest req)
         {
-            _logger.LogInformation("C# HTTP trigger function processed a request.");
+            _logger.LogInformation("Verify token function processed a request.");
 
             // Extract token from Authorization header
             string token = req.Headers["Authorization"].ToString().Replace("Bearer ", "");
@@ -54,7 +54,7 @@ namespace devbuddy.Functions
                 }, out SecurityToken validatedToken);
 
                 // Token is valid
-                return new OkObjectResult("Token is valid. Welcome to Azure Functions!");
+                return new OkObjectResult(new { success = true, message = "Token verifed." });
             }
             catch
             {
