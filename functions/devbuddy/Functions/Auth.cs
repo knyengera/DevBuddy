@@ -31,7 +31,12 @@ namespace devbuddy.Functions
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("your_secret_key_here");
+            
+            // Retrieve the secret key from environment variables
+            var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? "";
+
+            // TODO: Use Azure Key Vault to manage your secret keys securely
+            var key = System.Text.Encoding.ASCII.GetBytes(secretKey);
 
             try
             {
