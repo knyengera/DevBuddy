@@ -62,6 +62,8 @@ namespace devbuddy.Functions
             
             // Retrieve the secret key from environment variables
             var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? "";
+            var ValidIssuer = Environment.GetEnvironmentVariable("JWT_VALID_ISSUER") ?? "";
+            var ValidAudience = Environment.GetEnvironmentVariable("JWT_VALID_AUDIENCE") ?? "";
             
             // TODO: Use Azure Key Vault to manage your secret keys securely
             var key = System.Text.Encoding.ASCII.GetBytes(secretKey);
@@ -74,7 +76,9 @@ namespace devbuddy.Functions
                     new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = ValidIssuer,
+                Audience = ValidAudience
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);

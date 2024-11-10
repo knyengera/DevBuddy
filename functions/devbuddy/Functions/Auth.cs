@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System;
 
 namespace devbuddy.Functions
 {
@@ -34,7 +35,9 @@ namespace devbuddy.Functions
             
             // Retrieve the secret key from environment variables
             var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? "";
-
+            var ValidIssuer = Environment.GetEnvironmentVariable("JWT_VALID_ISSUER") ?? "";
+            var ValidAudience = Environment.GetEnvironmentVariable("JWT_VALID_AUDIENCE") ?? "";
+            
             // TODO: Use Azure Key Vault to manage your secret keys securely
             var key = System.Text.Encoding.ASCII.GetBytes(secretKey);
 
@@ -44,8 +47,10 @@ namespace devbuddy.Functions
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateIssuer = true,
+                    ValidIssuer = ValidIssuer,
+                    ValidateAudience = true,
+                    ValidAudience = ValidAudience,
                 }, out SecurityToken validatedToken);
 
                 // Token is valid
