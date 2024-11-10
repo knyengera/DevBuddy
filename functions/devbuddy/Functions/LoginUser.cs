@@ -65,7 +65,7 @@ namespace devbuddy.Functions
             var ValidIssuer = Environment.GetEnvironmentVariable("JWT_VALID_ISSUER") ?? "";
             var ValidAudience = Environment.GetEnvironmentVariable("JWT_VALID_AUDIENCE") ?? "";
             
-            // TODO: Use Azure Key Vault to manage your secret keys securely
+            // TODO: Use Azure Key Vault to manage secret keys securely
             var key = System.Text.Encoding.ASCII.GetBytes(secretKey);
             
             var tokenDescriptor = new SecurityTokenDescriptor
