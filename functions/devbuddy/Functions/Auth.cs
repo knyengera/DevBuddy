@@ -62,5 +62,12 @@ namespace devbuddy.Functions
                 return new UnauthorizedObjectResult(new { success = false, message = "Invalid token." });
             }
         }
+
+        [Function("Ping")]
+        public IActionResult Ping([HttpTrigger(AuthorizationLevel.Function, "get", Route = "ping")] HttpRequest req)
+        {
+            _logger.LogInformation("Ping endpoint was called.");
+            return new OkObjectResult(new { status = "Service is running", timestamp = DateTime.UtcNow });
+        }
     }
 }
