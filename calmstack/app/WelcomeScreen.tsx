@@ -30,6 +30,7 @@ const features = [
 type RootStackParamList = {
   SignUp: undefined;
   LogIn: undefined;
+  ForgotPassword: undefined;
   // Add other routes here if needed
 };
 

@@ -12,8 +12,8 @@ export default function ProfileScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
-    name: 'John Doe',
-    email: 'john.doe@example.com',
+    name: 'Vuyo Mkane',
+    email: 'vuyo@clamstack.com',
     level: 5,
     xp: 1200,
     totalQuests: 25,
@@ -39,7 +39,7 @@ export default function ProfileScreen() {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={{ uri: 'https://via.placeholder.com/150' }}
+          source={require('../assets/images/vuyo.png')}
           style={styles.avatar}
         />
         <Text style={styles.name}>{userData.name}</Text>

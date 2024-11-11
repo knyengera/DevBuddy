@@ -4,9 +4,9 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 // Define a type for your navigation routes
 type RootStackParamList = {
-  ChatbotScreen: undefined;
-  QuestsScreen: undefined;
-  ProfileScreen: undefined;
+  Chatbot: undefined;
+  Quests: undefined;
+  Profile: undefined;
 };
 
 export default function HomeScreen() {
@@ -15,25 +15,25 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.greeting}>Hello, Developer!</Text>
+        <Text style={styles.greeting}>Hello, Vuyo!</Text>
         <Text style={styles.stats}>Level 5 | 1200 XP</Text>
       </View>
       <View style={styles.quickAccess}>
         <TouchableOpacity 
           style={styles.quickAccessButton} 
-          onPress={() => navigation.navigate('ChatbotScreen')}
+          onPress={() => navigation.navigate('Chatbot')}
         >
           <Text style={styles.quickAccessText}>Chatbot</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.quickAccessButton} 
-          onPress={() => navigation.navigate('QuestsScreen')}
+          onPress={() => navigation.navigate('Quests')}
         >
           <Text style={styles.quickAccessText}>Quests</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.quickAccessButton} 
-          onPress={() => navigation.navigate('ProfileScreen')}
+          onPress={() => navigation.navigate('Profile')}
         >
           <Text style={styles.quickAccessText}>Profile</Text>
         </TouchableOpacity>

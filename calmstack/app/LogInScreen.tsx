@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 // Define a type for your navigation routes
 type RootStackParamList = {
-  HomeScreen: undefined;
-  ForgotPasswordScreen: undefined;
-  SignUpScreen: undefined;
+  Home: undefined;
+  ForgotPassword: undefined;
+  SignUp: undefined;
 };
 
 export default function LogInScreen() {
@@ -15,13 +15,20 @@ export default function LogInScreen() {
   const [password, setPassword] = useState('');
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const handleLogin = () => {
-    // Implement login logic here
-    console.log('Login with:', { email, password });
-    // On successful login, navigate to Home screen
-    navigation.navigate('HomeScreen');
+  // Dummy user data
+  const dummyUser = {
+    email: 'vuyo@clamstack.com',
+    password: 'password123'
   };
 
+  const handleLogin = () => {
+    if (email.trim() === dummyUser.email && password.trim() === dummyUser.password) {
+      navigation.navigate('Home');
+    } else {
+      Alert.alert('Login Failed', 'Invalid email or password');
+    }
+  };
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome Back</Text>
@@ -42,12 +49,12 @@ export default function LogInScreen() {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </TouchableOpacity>
       <View style={styles.signUpContainer}>
         <Text style={styles.signUpText}>Don't have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.signUpLink}>Sign Up</Text>
         </TouchableOpacity>
       </View>
