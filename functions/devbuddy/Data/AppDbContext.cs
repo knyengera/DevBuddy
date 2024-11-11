@@ -7,6 +7,7 @@ namespace devbuddy.Data
     public class AppDbContext : DbContext
     {
         public DbSet<UserData> Users { get; set; }
+        public DbSet<Quest> Quests { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
