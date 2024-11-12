@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { loginUser } from '../services/apiService';
 
 // Define a type for your navigation routes
 type RootStackParamList = {
@@ -21,12 +22,19 @@ export default function LogInScreen() {
     password: 'password123'
   };
 
-  const handleLogin = () => {
+  async function handleLogin() {
     if (email.trim() === dummyUser.email && password.trim() === dummyUser.password) {
       navigation.navigate('Home');
     } else {
       Alert.alert('Login Failed', 'Invalid email or password');
     }
+    // try {
+    //   const response = await loginUser('username', 'password');
+    //   console.log('Login successful:', response);
+    //   navigation.navigate('Home');
+    // } catch (error) {
+    //   console.error('Login error:', error);
+    // }
   };
   
   return (
