@@ -24,7 +24,7 @@ namespace devbuddy.Functions
 
         [Function("CreateQuest")]
         public async Task<IActionResult> CreateQuest(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "quests")] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "quests")] HttpRequest req)
         {
             _logger.LogInformation("Processing a quest creation request.");
 
@@ -45,7 +45,7 @@ namespace devbuddy.Functions
 
         [Function("GetQuests")]
         public IActionResult GetQuests(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "quests")] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "quests")] HttpRequest req)
         {
             _logger.LogInformation("Fetching all quests.");
             var quests = _context.Quests.ToList();
@@ -54,7 +54,7 @@ namespace devbuddy.Functions
 
         [Function("GetQuestById")]
         public IActionResult GetQuestById(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "quests/{id}")] HttpRequest req, string id)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "quests/{id}")] HttpRequest req, string id)
         {
             _logger.LogInformation($"Fetching quest with ID: {id}");
             var quest = _context.Quests.FirstOrDefault(q => q.Id == id);
@@ -69,7 +69,7 @@ namespace devbuddy.Functions
 
         [Function("UpdateQuest")]
         public async Task<IActionResult> UpdateQuest(
-            [HttpTrigger(AuthorizationLevel.Function, "put", Route = "quests/{id}")] HttpRequest req, string id)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "quests/{id}")] HttpRequest req, string id)
         {
             _logger.LogInformation($"Updating quest with ID: {id}");
 
@@ -101,7 +101,7 @@ namespace devbuddy.Functions
 
         [Function("DeleteQuest")]
         public async Task<IActionResult> DeleteQuest(
-            [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "quests/{id}")] HttpRequest req, string id)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "quests/{id}")] HttpRequest req, string id)
         {
             _logger.LogInformation($"Deleting quest with ID: {id}");
 

@@ -25,7 +25,7 @@ namespace devbuddy.Functions
 
         [Function("RegisterUser")]
         public async Task<IActionResult> RegisterUsers(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route =("register"))] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route =("register"))] HttpRequest req)
         {
             _logger.LogInformation("Processing a user registration request.");
 
@@ -65,6 +65,11 @@ namespace devbuddy.Functions
             if (string.IsNullOrEmpty(userData.Id))
             {
                 userData.Id = Guid.NewGuid().ToString();
+            }
+
+            if (string.IsNullOrEmpty(userData.Role))
+            {
+                userData.Role = "user";
             }
 
             // Save user data to Cosmos DB

@@ -19,7 +19,7 @@ namespace devbuddy.Functions
         }
 
         [Function("Auth")]
-        public IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = "verify")] HttpRequest req)
+        public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "verify")] HttpRequest req)
         {
             _logger.LogInformation("Verify token function processed a request.");
 
@@ -64,7 +64,7 @@ namespace devbuddy.Functions
         }
 
         [Function("Ping")]
-        public IActionResult Ping([HttpTrigger(AuthorizationLevel.Function, "get", Route = "ping")] HttpRequest req)
+        public IActionResult Ping([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ping")] HttpRequest req)
         {
             _logger.LogInformation("Ping endpoint was called.");
             return new OkObjectResult(new { status = "Service is running", timestamp = DateTime.UtcNow });

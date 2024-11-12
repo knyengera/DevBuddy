@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { registerUser } from '../services/apiService'; // Import the registerUser function
 
 // Define a type for your navigation routes
 type RootStackParamList = {
@@ -17,9 +18,30 @@ export default function SignUpScreen() {
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const handleSignUp = () => {
-    // Implement sign up logic here
-    console.log('Sign up with:', { username, email, password, agreeToTerms });
+  const handleSignUp = async () => {
+    console.log('SignUp button pressed');
+    console.log('Agree to terms:', agreeToTerms);
+    if (!agreeToTerms) {
+      Alert.alert('Error', 'You must agree to the terms and conditions.');
+      return;
+    }
+  
+    console.log('Passwords:', password, confirmPassword);
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match.');
+      return;
+    }
+  
+    try {
+      console.log('Calling registerUser');
+      const response = await registerUser(username, email, password);
+      console.log('registerUser response:', response);
+      Alert.alert('Success', 'User registered successfully.');
+      navigation.navigate('LogIn');
+    } catch (error) {
+      console.log('registerUser error:', error);
+      Alert.alert('Error', 'Registration failed. Please try again.');
+    }
   };
 
   return (
@@ -52,12 +74,11 @@ export default function SignUpScreen() {
         onChangeText={setConfirmPassword}
         secureTextEntry
       />
-      <View style={styles.termsContainer}>
-        <TouchableOpacity onPress={() => setAgreeToTerms(!agreeToTerms)}>
-          <View style={[styles.checkbox, agreeToTerms && styles.checked]} />
-        </TouchableOpacity>
-        <Text style={styles.termsText}>I agree to the Terms of Service and Privacy Policy</Text>
-      </View>
+      <TouchableOpacity style={styles.termsContainer} onPress={() => setAgreeToTerms(!agreeToTerms)}>
+        <View style={[styles.checkbox, agreeToTerms && styles.checked]} />
+         <Text style={styles.termsText}>I agree to the Terms of Service and Privacy Policy</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>

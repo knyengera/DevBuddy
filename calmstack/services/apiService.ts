@@ -22,7 +22,7 @@ async function registerUser(username: string, email: string, password: string) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ username, email, password }),
+    body: JSON.stringify({ Email: email, Password: password, Username: username }),
   });
 
   if (!response.ok) {
@@ -31,6 +31,7 @@ async function registerUser(username: string, email: string, password: string) {
 
   return response.json();
 }
+
 
 async function verifyToken(token: string) {
   const response = await fetch(`${API_BASE_URL}/verify`, {

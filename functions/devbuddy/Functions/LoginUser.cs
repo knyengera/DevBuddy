@@ -29,7 +29,7 @@ namespace devbuddy.Functions
 
         [Function("LoginUser")]
         public async Task<IActionResult> LoginUsers(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route =("login"))] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route =("login"))] HttpRequest req)
         {
             _logger.LogInformation("Processing a user login request.");
 
