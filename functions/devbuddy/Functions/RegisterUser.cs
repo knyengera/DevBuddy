@@ -61,6 +61,12 @@ namespace devbuddy.Functions
             // Hash the password before saving
             userData.Password = BCrypt.Net.BCrypt.HashPassword(userData.Password);
 
+            // Ensure the Id is set if it's a GUID
+            if (string.IsNullOrEmpty(userData.Id))
+            {
+                userData.Id = Guid.NewGuid().ToString();
+            }
+
             // Save user data to Cosmos DB
             _context.Users.Add(userData);
             await _context.SaveChangesAsync();

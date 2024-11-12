@@ -1,27 +1,30 @@
 using Microsoft.EntityFrameworkCore;
-using System;
 using devbuddy.Models;
 
 namespace devbuddy.Data
 {
     public class AppDbContext : DbContext
     {
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+         : base(options)
+        {
+        }
+
         public DbSet<UserData> Users { get; set; }
         public DbSet<Quest> Quests { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var endpoint = Environment.GetEnvironmentVariable("COSMOSDB_ENDPOINT");
-            var key = Environment.GetEnvironmentVariable("COSMOSDB_KEY");
-            var databaseName = Environment.GetEnvironmentVariable("COSMOSDB_DATABASE_NAME");
+            modelBuilder.Entity<UserData>()
+                .ToContainer("Users")
+                .HasPartitionKey(u => u.Id);
 
-            if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(key) || string.IsNullOrEmpty(databaseName))
-            {
-                throw new InvalidOperationException("Cosmos DB connection details are not set.");
-            }
+            modelBuilder.Entity<Quest>()
+                .ToContainer("Quests")
+                .HasPartitionKey(q => q.Id);
 
-            optionsBuilder.UseCosmos(endpoint, key, databaseName);
+
         }
     }
-
-} 
+}
