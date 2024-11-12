@@ -19,25 +19,21 @@ export default function SignUpScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const handleSignUp = async () => {
-    console.log('SignUp button pressed');
-    console.log('Agree to terms:', agreeToTerms);
     if (!agreeToTerms) {
       Alert.alert('Error', 'You must agree to the terms and conditions.');
       return;
     }
   
-    console.log('Passwords:', password, confirmPassword);
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match.');
       return;
     }
   
     try {
-      console.log('Calling registerUser');
       const response = await registerUser(username, email, password);
-      console.log('registerUser response:', response);
-      Alert.alert('Success', 'User registered successfully.');
-      navigation.navigate('LogIn');
+      Alert.alert('Success', 'Registration successful!', [
+        { text: 'OK', onPress: () => navigation.navigate('LogIn') }
+      ]);
     } catch (error) {
       console.log('registerUser error:', error);
       Alert.alert('Error', 'Registration failed. Please try again.');

@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.API_BASE_URL ?? "http://localhost:7053/api";
+const API_BASE_URL = process.env.API_BASE_URL ?? "https://calmstack.azurewebsites.net/api";
 
 async function loginUser(username: string, password: string) {
   const response = await fetch(`${API_BASE_URL}/login`, {
