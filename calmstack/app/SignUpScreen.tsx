@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { registerUser } from '../services/apiService'; // Import the registerUser function
+import { registerUser } from '../services/apiService'; // Ensure this import is correct
 
 // Define a type for your navigation routes
 type RootStackParamList = {
