@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+// Define a type for your navigation routes
+type RootStackParamList = {
+  Home: undefined;
+  LogIn: undefined;
+};
 
 export default function SignUpScreen() {
   const [username, setUsername] = useState('');
@@ -7,6 +15,7 @@ export default function SignUpScreen() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const handleSignUp = () => {
     // Implement sign up logic here
@@ -52,6 +61,12 @@ export default function SignUpScreen() {
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
+      <View style={styles.logInContainer}>
+        <Text style={styles.logInText}>Already have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('LogIn')}>
+          <Text style={styles.logInLink}>Log In</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
@@ -105,6 +120,18 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  logInContainer: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  logInText: {
+    color: '#333',
+  },
+  logInLink: {
+    color: '#4CAF50',
     fontWeight: 'bold',
   },
 });

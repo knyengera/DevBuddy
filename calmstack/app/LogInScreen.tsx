@@ -17,7 +17,7 @@ export default function LogInScreen() {
 
   // Dummy user data
   const dummyUser = {
-    email: 'vuyo@clamstack.com',
+    email: 'vuyo@calmstack.com',
     password: 'password123'
   };
 

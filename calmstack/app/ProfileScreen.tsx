@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, TextInput 
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 type RootStackParamList = {
-  ProfileScreen: undefined;
-  LogInScreen: undefined;
+  Profile: undefined;
+  LogIn: undefined;
   // Add other screens here
 };
 
@@ -32,7 +32,7 @@ export default function ProfileScreen() {
 
   const handleLogout = () => {
     // Implement logout logic here
-    navigation.navigate('LogInScreen');
+    navigation.navigate('LogIn');
   };
 
   return (
