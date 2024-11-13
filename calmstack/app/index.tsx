@@ -3,6 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '../stores/index';
 
 import WelcomeScreen from './WelcomeScreen';
 import SignUpScreen from './SignUpScreen';
@@ -12,9 +15,6 @@ import ChatbotScreen from './ChatbotScreen';
 import QuestsScreen from './QuestsScreen';
 import ProfileScreen from './ProfileScreen';
 import QuestDetailScreen from './QuestDetailScreen'; // If needed
-import { Provider } from 'react-redux';
-import { store } from '../stores/index';
-
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -55,16 +55,18 @@ function TabNavigator() {
 export default function App() {
   return (
     <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="LogIn" component={LogInScreen} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-        <Stack.Screen name="Home" component={TabNavigator} /> 
-        <Stack.Screen name="QuestDetail" component={QuestDetailScreen} /> 
-      </Stack.Navigator>
-    </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen name="LogIn" component={LogInScreen} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+            <Stack.Screen name="Home" component={TabNavigator} /> 
+            <Stack.Screen name="QuestDetail" component={QuestDetailScreen} /> 
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }

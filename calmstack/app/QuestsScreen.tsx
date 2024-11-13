@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, TextInput } from 'react-native';
 import { useNavigation, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useAppDispatch, useAppSelector } from '../stores/hooks';
+import { startQuest, completeQuest } from '../stores/slices/questSlice';
 
 // Mock data for quests
 const mockQuests = [
@@ -54,6 +56,8 @@ export default function QuestListScreen() {
   const [activeTab, setActiveTab] = useState('daily');
   const [searchQuery, setSearchQuery] = useState('');
   const navigation = useNavigation<QuestListScreenNavigationProp>();
+  const dispatch = useAppDispatch();
+  const { quests, activeQuestId } = useAppSelector((state) => state.quests);
 
   const filteredQuests = mockQuests.filter(quest => 
     quest.category === activeTab && 
@@ -66,6 +70,14 @@ export default function QuestListScreen() {
       onPress={() => navigation.navigate('QuestDetail', { questId: item.id })}
     />
   );
+
+  const handleStartQuest = (questId: string) => {
+    dispatch(startQuest(questId));
+  };
+
+  const handleCompleteQuest = (questId: string) => {
+    dispatch(completeQuest(questId));
+  };
 
   return (
     <View style={styles.container}>

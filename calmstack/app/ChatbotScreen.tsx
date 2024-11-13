@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { useAppDispatch, useAppSelector } from '../stores/hooks';
+import { sendMessage, receiveBotMessage } from '../stores/slices/chatSlice';
 
 // Define a TypeScript interface for the message object
 interface Message {
@@ -9,20 +11,18 @@ interface Message {
 }
 
 export default function ChatbotScreen() {
-  const [messages, setMessages] = useState<Message[]>([
-    { id: '1', text: 'Hello! How can I assist you today?', sender: 'bot' },
-  ]);
+  const dispatch = useAppDispatch();
+  const { messages, loading } = useAppSelector((state) => state.chat);
   const [inputText, setInputText] = useState('');
 
   const handleSend = () => {
     if (inputText.trim()) {
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { id: Date.now().toString(), text: inputText, sender: 'user' },
-      ]);
+      dispatch(sendMessage(inputText));
       setInputText('');
-      // Here you would typically send the message to your chatbot API
-      // and then add the response to the messages
+      // Simulate bot response
+      setTimeout(() => {
+        dispatch(receiveBotMessage('Thanks for your message!'));
+      }, 1000);
     }
   };
 
