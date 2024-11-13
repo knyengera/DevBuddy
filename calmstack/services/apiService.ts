@@ -64,4 +64,18 @@ async function getQuests() {
   return response.json();
 }
 
-export { loginUser, registerUser, verifyToken, getQuests }; 
+async function checkConnectivity(): Promise<boolean> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/ping`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+export { loginUser, registerUser, verifyToken, getQuests, checkConnectivity }; 
