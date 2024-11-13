@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useAppSelector } from '../stores/hooks';
 
 const { width } = Dimensions.get('window');
 
@@ -31,12 +32,19 @@ type RootStackParamList = {
   SignUp: undefined;
   LogIn: undefined;
   ForgotPassword: undefined;
-  // Add other routes here if needed
+  Home: undefined;
 };
 
 export default function WelcomeScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [currentPage, setCurrentPage] = useState(0);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigation.navigate('Home');
+    }
+  }, [isAuthenticated, navigation]);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const page = Math.round(event.nativeEvent.contentOffset.x / width);
