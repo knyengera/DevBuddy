@@ -6,12 +6,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import authReducer from './slices/authSlice';
 import chatReducer from './slices/chatSlice';
 import questReducer from './slices/questSlice';
+import connectivityReducer from './slices/connectivitySlice';
 
 // Combine all reducers
 const rootReducer = combineReducers({
   auth: authReducer,
   chat: chatReducer,
   quests: questReducer,
+  connectivity: connectivityReducer,
 });
 
 // Configure persist

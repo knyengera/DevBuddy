@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -6,6 +6,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '../stores/index';
+import { useAppDispatch, useAppSelector } from '../stores/hooks';
+import { setOnlineStatus } from '../stores/slices/connectivitySlice';
+import { checkConnectivity } from '../services/apiService';
+import OfflineScreen from './components/OfflineScreen';
 
 import WelcomeScreen from './WelcomeScreen';
 import SignUpScreen from './SignUpScreen';
@@ -53,6 +57,24 @@ function TabNavigator() {
 }
 
 export default function App() {
+  const dispatch = useAppDispatch();
+  const { isOnline } = useAppSelector((state) => state.connectivity);
+
+  const checkConnection = async () => {
+    const online = await checkConnectivity();
+    dispatch(setOnlineStatus(online));
+  };
+
+  useEffect(() => {
+    checkConnection();
+    const interval = setInterval(checkConnection, 30000); // Check every 30 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  if (!isOnline) {
+    return <OfflineScreen onRetry={checkConnection} />;
+  }
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
