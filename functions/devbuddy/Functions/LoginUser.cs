@@ -41,12 +41,14 @@ namespace devbuddy.Functions
                 return new BadRequestObjectResult(new { success = false, message = "Invalid login data." });
             }
 
-            // Find user by username
-            var user = _context.Users.FirstOrDefault(u => u.Username == loginData.Username);
+            // Find user by username or email
+            var user = _context.Users.FirstOrDefault(u => 
+                u.Username == loginData.Username || 
+                u.Email == loginData.Username);
 
             if (user == null)
             {
-                return new UnauthorizedObjectResult(new { success = false, message = "Invalid username or password." });
+                return new UnauthorizedObjectResult(new { success = false, message = "Invalid username/email or password." });
             }
 
             // Validate password

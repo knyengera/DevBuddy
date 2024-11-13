@@ -16,25 +16,14 @@ export default function LogInScreen() {
   const [password, setPassword] = useState('');
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  // Dummy user data
-  const dummyUser = {
-    email: 'vuyo@calmstack.com',
-    password: 'password123'
-  };
-
   async function handleLogin() {
-    if (email.trim() === dummyUser.email && password.trim() === dummyUser.password) {
+    try {
+      const response = await loginUser(email, password);
+      console.log('Login successful:', response);
       navigation.navigate('Home');
-    } else {
-      Alert.alert('Login Failed', 'Invalid email or password');
+    } catch (error) {
+      console.error('Login error:', error);
     }
-    // try {
-    //   const response = await loginUser('username', 'password');
-    //   console.log('Login successful:', response);
-    //   navigation.navigate('Home');
-    // } catch (error) {
-    //   console.error('Login error:', error);
-    // }
   };
   
   return (
