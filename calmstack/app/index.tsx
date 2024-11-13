@@ -12,6 +12,9 @@ import ChatbotScreen from './ChatbotScreen';
 import QuestsScreen from './QuestsScreen';
 import ProfileScreen from './ProfileScreen';
 import QuestDetailScreen from './QuestDetailScreen'; // If needed
+import { Provider } from 'react-redux';
+import { store } from '../stores/index';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,6 +54,7 @@ function TabNavigator() {
 
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
@@ -61,5 +65,6 @@ export default function App() {
         <Stack.Screen name="QuestDetail" component={QuestDetailScreen} /> 
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }

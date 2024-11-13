@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'reac
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { loginUser } from '../services/apiService';
+import { useAppDispatch, useAppSelector } from '../stores/hooks';
+import { loginStart, loginSuccess, loginFailure } from '../stores/slices/authSlice';
+
 
 // Define a type for your navigation routes
 type RootStackParamList = {
@@ -14,15 +17,25 @@ type RootStackParamList = {
 export default function LogInScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  const { loading, error } = useAppSelector((state) => state.auth);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   async function handleLogin() {
     try {
+      dispatch(loginStart());
       const response = await loginUser(email, password);
+      dispatch(loginSuccess({ 
+        user: response.user, 
+        token: response.token 
+      }));
       console.log('Login successful:', response);
       navigation.navigate('Home');
     } catch (error) {
       console.error('Login error:', error);
+      dispatch(loginFailure(
+        error instanceof Error ? error.message : 'An unknown error occurred'
+      ));
     }
   };
   
