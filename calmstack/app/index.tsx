@@ -18,7 +18,7 @@ import ForgotPasswordScreen from './ForgotPasswordScreen';
 import ChatbotScreen from './ChatbotScreen';
 import QuestsScreen from './QuestsScreen';
 import ProfileScreen from './ProfileScreen';
-import QuestDetailScreen from './QuestDetailScreen'; // If needed
+import QuestDetailScreen from './QuestDetailScreen'; 
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,7 +28,7 @@ function TabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerShown: false, // Hide header if desired
+        headerShown: false, 
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
@@ -39,10 +39,9 @@ function TabNavigator() {
           } else if (route.name === 'Profile') {
             iconName = 'person-outline';
           } else {
-            iconName = 'default-icon'; // Provide a default icon name
+            iconName = 'default-icon'; 
           }
-
-          // Return the icon component
+          
           return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#4CAF50',
