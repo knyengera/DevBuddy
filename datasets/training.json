@@ -1,0 +1,184 @@
+[
+    {
+        "intent": "RequestStressReliefExercise",
+        "language": "en-us",
+        "text": "I'm hitting a wall with this debugging. Any quick exercises?",
+        "entities": [
+            {
+                "category": "DeveloperTerms",
+                "offset": 29,
+                "length": 9
+            },
+            {
+                "category": "ActivityType",
+                "offset": 50,
+                "length": 9
+            }
+        ]
+    },
+    {
+        "intent": "RequestStressReliefExercise",
+        "language": "en-us",
+        "text": "Need a breather from this codebase.",
+        "entities": [
+            {
+                "category": "DeveloperTerms",
+                "offset": 26,
+                "length": 8
+            }
+        ]
+    },
+    {
+        "intent": "ReportBurnout",
+        "language": "en-us",
+        "text": "Pulling these all-nighters is killing me.",
+        "entities": [
+            {
+                "category": "DeveloperTerms",
+                "offset": 14,
+                "length": 12
+            }
+        ]
+    },
+    {
+        "intent": "SeekImpostorSyndromeHelp",
+        "language": "en-us",
+        "text": "I feel like a newbie compared to my team.",
+        "entities": [
+            {
+                "category": "Emotion",
+                "offset": 14,
+                "length": 6
+            }
+        ]
+    },
+    {
+        "intent": "AskForProductivityTips",
+        "language": "en-us",
+        "text": "Any hacks for optimizing my IDE?",
+        "entities": [
+            {
+                "category": "Tools",
+                "offset": 28,
+                "length": 3
+            }
+        ]
+    },
+    {
+        "intent": "Greetings",
+        "language": "en-us",
+        "text": "Hey DevBuddy, what's up?",
+        "entities": []
+    },
+    {
+        "intent": "ThankYou",
+        "language": "en-us",
+        "text": "You're a lifesaver.",
+        "entities": []
+    },
+    {
+        "intent": "AskForResource",
+        "language": "en-us",
+        "text": "Can you recommend an article on managing burnout?",
+        "entities": [
+            {
+                "category": "Emotion",
+                "offset": 41,
+                "length": 7
+            }
+        ]
+    },
+    {
+        "intent": "SetPersonalGoal",
+        "language": "en-us",
+        "text": "I want to set a goal to take a 5-minute walk every hour.",
+        "entities": [
+            {
+                "category": "TimeDuration",
+                "offset": 31,
+                "length": 8
+            },
+            {
+                "category": "ActivityType",
+                "offset": 40,
+                "length": 4
+            }
+        ]
+    },
+    {
+        "intent": "RequestStressReliefExercise",
+        "language": "en-us",
+        "text": "Overloaded with merge conflicts. What can I do to relax?",
+        "entities": [
+            {
+                "category": "DeveloperTerms",
+                "offset": 16,
+                "length": 15
+            },
+            {
+                "category": "ActivityType",
+                "offset": 50,
+                "length": 5
+            }
+        ]
+    },
+    {
+        "intent": "ReportBurnout",
+        "language": "en-us",
+        "text": "I can't keep up with these sprints.",
+        "entities": [
+            {
+                "category": "DeveloperTerms",
+                "offset": 27,
+                "length": 7
+            }
+        ]
+    },
+    {
+        "intent": "SeekImpostorSyndromeHelp",
+        "language": "en-us",
+        "text": "Everyone else codes circles around me.",
+        "entities": []
+    },
+    {
+        "intent": "AskForProductivityTips",
+        "language": "en-us",
+        "text": "How do I streamline my Git workflow?",
+        "entities": [
+            {
+                "category": "Tools",
+                "offset": 23,
+                "length": 3
+            }
+        ]
+    },
+    {
+        "intent": "SetPersonalGoal",
+        "language": "en-us",
+        "text": "Help me create a goal to meditate daily.",
+        "entities": [
+            {
+                "category": "ActivityType",
+                "offset": 25,
+                "length": 8
+            },
+            {
+                "category": "TimeDuration",
+                "offset": 34,
+                "length": 5
+            }
+        ]
+    },
+    {
+        "intent": "AskForResource",
+        "language": "en-us",
+        "text": "Show me resources on overcoming impostor syndrome.",
+        "entities": [
+            {
+                "category": "Emotion",
+                "offset": 32,
+                "length": 17
+            }
+        ]
+    }
+]
